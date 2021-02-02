@@ -1,5 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-  res.status(200).json({ name: 'Martin' })
+import { Data } from '../../utils/types';
+
+export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  const { city } = req.query;
+  const param = city || "Aarhus";
+  const response = await fetch(`https://vejr.eu/api.php?location=${param}&degree=C`);
+  const data = await response.json();
+
+  res.status(200).json( { 
+    name: data.LocationName,
+    weatherData: {
+      temperature: data.CurrentData.temperature,
+      skyText: data.CurrentData.skyText,
+      humidity: data.CurrentData.humidity,
+      windText: data.CurrentData.windText
+    }
+  } );
 }
