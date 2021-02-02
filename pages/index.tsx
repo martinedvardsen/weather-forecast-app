@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export const getServerSideProps: GetServerSideProps = async (context) => { 
   const { city } = context.query;
-  const res = await fetch(`http://localhost:3000/api/hello?city=${city}`)
+  const res = await fetch(`https://weather-forecast-app-ecru.vercel.app/api/hello?city=${city}`)
   const data = await res.json();
 
   return {
@@ -17,7 +17,7 @@ function Home({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) 
   const [query, setQuery] = useState("")
 
   const handleClick = async (e: React.FormEvent<HTMLButtonElement>) => {
-    const response = await fetch(`http://localhost:3000/api/hello?city=${query}`).then(res => res.json())
+    const response = await fetch(`https://weather-forecast-app-ecru.vercel.app/api/hello?city=${query}`).then(res => res.json())
     setWeatherData(response)
   }
 
