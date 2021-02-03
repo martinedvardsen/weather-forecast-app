@@ -49,7 +49,8 @@ describe('/api/weatherAPI/[city]', () => {
         expect(typeof JSON.parse(res._getData()).weatherData.temperature).toBe('string');     
         expect(typeof JSON.parse(res._getData()).weatherData.skyText).toBe('string');     
         expect(typeof JSON.parse(res._getData()).weatherData.humidity).toBe('string');     
-        expect(typeof JSON.parse(res._getData()).weatherData.windText).toBe('string');     
+        expect(typeof JSON.parse(res._getData()).weatherData.windText).toBe('string');    
+        expect(typeof JSON.parse(res._getData()).error).toBe('string');  
     });
 
     test('returns correct city', async () => {

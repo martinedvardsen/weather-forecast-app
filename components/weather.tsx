@@ -9,7 +9,7 @@ const Weather: React.FC<Data> = (data) => {
 
     const handleClick = async (e: React.FormEvent<HTMLButtonElement | HTMLInputElement>) => {
         console.log(query)
-        const response = await fetch(`http://localhost:3000/api/weatherAPI?city=${query}`).then(res => res.json())
+        const response = await fetch(`https://weather-forecast-app-ecru.vercel.app/api/weatherAPI?city=${query}`).then(res => res.json())
         setWeatherData(response);
         if (window.history.pushState) {
             const url = new URL(window.location.href);
