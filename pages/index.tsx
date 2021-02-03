@@ -1,6 +1,7 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import styles from '../styles/Home.module.css';
 import { useState } from 'react';
+import Weather from '../components/weather';
 
 export const getServerSideProps: GetServerSideProps = async (context) => { 
   const { city } = context.query;
@@ -13,23 +14,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 function Home({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [weatherData, setWeatherData] = useState({...data});
-  const [query, setQuery] = useState("")
-
-  const handleClick = async (e: React.FormEvent<HTMLButtonElement>) => {
-    const response = await fetch(`https://weather-forecast-app-ecru.vercel.app/api/hello?city=${query}`).then(res => res.json())
-    setWeatherData(response)
-  }
-
   return (
     <div className={styles.container}>
-      <p>City: {weatherData.name}</p>
-      <p>Current temperature: {weatherData.weatherData.temperature}</p>
-      <p>Current weather status: {weatherData.weatherData.skyText}</p>
-      <p>Current humidity: {weatherData.weatherData.humidity}</p>
-      <p>Current wind status: {weatherData.weatherData.windText}</p>
-      <input type="text" value={query} onChange={e => setQuery(e.target.value)}/>
-      <button onClick={handleClick}>Search</button>
+      <Weather {...data} />
     </div>
   )
 }
