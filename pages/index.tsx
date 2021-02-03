@@ -4,7 +4,7 @@ import Weather from '../components/weather';
 
 export const getServerSideProps: GetServerSideProps = async (context) => { 
   const { city } = context.query;
-  const res = await fetch(`${process.env.NOW_URL}/api/weatherAPI?city=${city || 'København'}`)
+  const res = await fetch(`https://weather-forecast-app-ecru.vercel.app/api/weatherAPI?city=${city || 'København'}`)
   const data = await res.json();
 
   return {
