@@ -9,7 +9,7 @@ const Weather: React.FC<Data> = (data) => {
 
     const handleClick = async (e: React.FormEvent<HTMLButtonElement | HTMLInputElement>) => {
         console.log(query)
-        const response = await fetch(`https://weather-forecast-app-ecru.vercel.app/api/hello?city=${query}`).then(res => res.json())
+        const response = await fetch(`http://localhost:3000/api/weatherAPI?city=${query}`).then(res => res.json())
         setWeatherData(response);
         if (window.history.pushState) {
             const url = new URL(window.location.href);
@@ -24,30 +24,33 @@ const Weather: React.FC<Data> = (data) => {
                 <p>Weather in <b>{weatherData.name}</b></p>
             </div>
             <div className={styles.element_wrapper}>
-                <p>Temperature: <b>{weatherData.weatherData.temperature}&deg;C</b></p>
+                <p>Temperature: <b>{weatherData.weatherData?.temperature}&deg;C</b></p>
             </div>
             <div className={styles.element_wrapper}>
-                <p>Sky: <b>{weatherData.weatherData.skyText}</b></p>
+                <p>Sky: <b>{weatherData.weatherData?.skyText}</b></p>
             </div>
             <div className={styles.element_wrapper}>
-                <p>Humidity: <b>{weatherData.weatherData.humidity}</b></p>
+                <p>Humidity: <b>{weatherData.weatherData?.humidity}</b></p>
             </div>
             <div className={styles.element_wrapper}>
-                <p>Wind: <b>{weatherData.weatherData.windText}</b></p>
+                <p>Wind: <b>{weatherData.weatherData?.windText}</b></p>
             </div>
             <div className={styles.search_wrapper}>
-                <input 
-                   type="text" 
-                   value={query} 
-                   onChange={e => setQuery(e.target.value)}
-                   placeholder="Search for another city"
-                   onKeyPress={e => 
-                       {
-                           if(e.key === 'Enter') handleClick(e);
-                       }
-                   }
-                />
-                <button onClick={handleClick}>Search</button>
+                <div className={styles.input_wrapper}>
+                    <input 
+                    type="text" 
+                    value={query} 
+                    onChange={e => setQuery(e.target.value)}
+                    placeholder="Search for another city"
+                    onKeyPress={e => 
+                        {
+                            if(e.key === 'Enter') handleClick(e);
+                        }
+                    }
+                    />
+                    <button onClick={handleClick}>Search</button>
+                </div>
+                {weatherData.error && <small className={styles.error}>{weatherData.error}</small>}
             </div>
         </div>
     )

@@ -7,5 +7,6 @@ export interface WeatherData {
 
 export interface Data {
   name: string;
-  weatherData: WeatherData;
+  weatherData: WeatherData | undefined;
+  error: string;
 }
