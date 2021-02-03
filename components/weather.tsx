@@ -9,7 +9,7 @@ const Weather: React.FC<Data> = (data) => {
 
     const handleClick = async (e: React.FormEvent<HTMLButtonElement | HTMLInputElement>) => {
         console.log(query)
-        const response = await fetch(`http://localhost:3000/api/hello?city=${query}`).then(res => res.json())
+        const response = await fetch(`${process.env.SITE_DOMAIN}/api/hello?city=${query}`).then(res => res.json())
         setWeatherData(response);
         if (window.history.pushState) {
             const url = new URL(window.location.href);
