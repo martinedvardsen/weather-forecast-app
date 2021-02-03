@@ -7,7 +7,7 @@ const Weather: React.FC<Data> = (data) => {
     const [weatherData, setWeatherData] = useState({...data});
     const [query, setQuery] = useState("")
 
-    const handleClick = async (e: React.FormEvent<HTMLButtonElement | HTMLInputElement>) => {
+    const handleSearch = async (e: React.FormEvent<HTMLButtonElement | HTMLInputElement>) => {
         const response = await fetch(`https://weather-forecast-app.martinedvardsen.vercel.app/api/weatherAPI?city=${query}`)
         const body = await response.json();
         setWeatherData(body);
@@ -44,11 +44,11 @@ const Weather: React.FC<Data> = (data) => {
                     placeholder="Search for another city"
                     onKeyPress={e => 
                         {
-                            if(e.key === 'Enter') handleClick(e);
+                            if(e.key === 'Enter') handleSearch(e);
                         }
                     }
                     />
-                    <button onClick={handleClick}>Search</button>
+                    <button onClick={handleSearch}>Search</button>
                 </div>
                 {weatherData.error && <small className={styles.error}>{weatherData.error}</small>}
             </div>
