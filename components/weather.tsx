@@ -8,12 +8,12 @@ const Weather: React.FC<Data> = (data) => {
     const [query, setQuery] = useState("")
 
     const handleClick = async (e: React.FormEvent<HTMLButtonElement | HTMLInputElement>) => {
-        console.log(query)
-        const response = await fetch(`https://weather-forecast-app-ecru.vercel.app/api/weatherAPI?city=${query}`).then(res => res.json())
-        setWeatherData(response);
+        const response = await fetch(`https://weather-forecast-app-6n83gb5ru.vercel.app/api/weatherAPI?city=${query}`)
+        const body = await response.json();
+        setWeatherData(body);
         if (window.history.pushState) {
             const url = new URL(window.location.href);
-            url.searchParams.set('city', query);
+            url.searchParams.set('city', query || "København");
             window.history.pushState({}, '', url.toString());
         }
     }
