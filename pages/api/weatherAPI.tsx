@@ -5,7 +5,8 @@ import { Data } from '../../utils/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { city } = req.query;
-  const param = city || "København";
+  const capitalized = city[0].charAt(0).toUpperCase() + city[0].slice(1);
+  const param = capitalized || "København";
   const response = await fetch(`https://vejr.eu/api.php?location=${param}&degree=C`)
     .catch((error: Error) => console.log(error));
   const data = await response.json();
