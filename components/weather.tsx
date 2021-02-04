@@ -13,7 +13,7 @@ const Weather: React.FC<Data> = (data) => {
         setWeatherData(body);
         if (window.history.pushState) {
             const url = new URL(window.location.href);
-            url.searchParams.set('city', query || "København");
+            url.searchParams.set('city', query || "københavn");
             window.history.pushState({}, '', url.toString());
         }
     }

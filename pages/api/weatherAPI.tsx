@@ -5,15 +5,15 @@ import { Data } from '../../utils/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { city } = req.query;
-  const capitalized = city[0].charAt(0).toUpperCase() + city[0].slice(1);
-  const param = capitalized || "København";
+  const cityName = city || "københavn";
+  const param = Array.isArray(cityName) ? cityName[0] : cityName;
   const response = await fetch(`https://vejr.eu/api.php?location=${param}&degree=C`)
     .catch((error: Error) => console.log(error));
   const data = await response.json();
 
   // API returns random city, if city does not exist. 
-  if(!data.LocationName.includes(param)) {
-    console.log(data.LocationName)
+  if(!data.LocationName.toLowerCase().includes(param.toLowerCase())) {
+    console.log(data.LocationName.toLowerCase())
     console.log(param)
     res.status(400).json( {
       name: "",
